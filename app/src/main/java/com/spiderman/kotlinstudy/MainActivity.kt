@@ -54,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         Log.i("MyLog", describe(1))
         Log.i("MyLog", describe("S"))
 
+        rangeTest(1)
+        rangeTest(10)
+
+        flow()
+
+        mapTest()
     }
 
     //返回int
@@ -110,4 +116,38 @@ class MainActivity : AppCompatActivity() {
             !is String -> "Not a String"
             else -> "Unknown"
         }
+
+    fun rangeTest(x: Int) {
+        if (x in 1..5) {
+            Log.i("MyLog", "$x in range")
+        } else {
+            Log.i("MyLog", "$x out of range")
+        }
+
+        for (x in 1..10 step 2) {
+            Log.i("MyLog", "$x")
+        }
+
+        //10到5
+        for (x in 10 downTo 5) {
+            Log.i("MyLog", "x=${x}")
+        }
+    }
+
+    fun flow() {
+        val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+        fruits
+            .filter { it.startsWith("a") }
+            .sortedBy { it }
+            .map { it.toUpperCase() }
+            .forEach { Log.i("MyLog", it) }
+    }
+
+    fun mapTest() {
+        val map = mapOf("a" to 1, "b" to 2, "c" to 3)
+        for ((key, value) in map) {
+            Log.i("MyLog", "$key:$value")
+        }
+        Log.i("MyLog", "map[a]=${map["a"]}")
+    }
 }
