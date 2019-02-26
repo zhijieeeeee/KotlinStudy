@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         mapTest()
 
-        var sentence = "Tang Zhi Jie"
+        var sentence = "Peter Tang"
 
         Log.i("MyLog", "${sentence.deleteSpace()}")
 
@@ -96,6 +96,21 @@ class MainActivity : AppCompatActivity() {
 
         testBreak()
         testReturn()
+
+        //对象
+        val user = User("Peter", 27, "男")
+        Log.i("MyLog", "name = ${user.name}")
+        user.methodB()
+        user.methodC()
+
+        val people=People("女")
+        people.text="嘻嘻嘻"
+        Log.i("MyLog", "people.text = ${people.text}")
+        people.text="哈哈哈"
+        Log.i("MyLog", "people.text = ${people.text}")
+
+        val student = Student("Tom", 12)
+        val view = View(this)
     }
 
     //返回int
