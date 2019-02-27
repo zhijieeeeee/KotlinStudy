@@ -66,9 +66,16 @@ class MainActivity : AppCompatActivity() {
 
         mapTest()
 
+        //扩展方法
         var sentence = "Peter Tang"
 
         Log.i("MyLog", "${sentence.deleteSpace()}")
+
+        val mu = mutableListOf(1, 2, 3)
+        mu.swap2(0, 2)
+        mu.forEach {
+            Log.i("MyLog", "mu=$it")
+        }
 
         testNull()
 
@@ -103,14 +110,28 @@ class MainActivity : AppCompatActivity() {
         user.methodB()
         user.methodC()
 
-        val people=People("女")
-        people.text="嘻嘻嘻"
+        val people = People("女")
+        people.text = "嘻嘻嘻"
         Log.i("MyLog", "people.text = ${people.text}")
-        people.text="哈哈哈"
+        people.text = "哈哈哈"
         Log.i("MyLog", "people.text = ${people.text}")
 
         val student = Student("Tom", 12)
         val view = View(this)
+
+        //泛型，可自动推断
+        val fanxing = Fanxing<Int>(1)
+        val fanxing2 = Fanxing("kggiug")
+
+        //内部类
+        var demo = Outer.Nested().foo()
+        var demo2 = Outer().Inner().foo()
+
+
+        var list = asList(10, 20, 30, 40)
+        //如果我们已经有一个数组并希望将其内容传给该函数，我们使用伸展（spread）操作符（在数组前面加 *）
+        var array = arrayOf(3, 35, 46)
+        var list2 = asList(-1, -2, *array, -999)
     }
 
     //返回int
@@ -191,13 +212,17 @@ class MainActivity : AppCompatActivity() {
 
 
     fun rangeTest(x: Int) {
-        if (x in 1..5) {
+        if (x in 1..5) {//1-5
             Log.i("MyLog", "$x in range")
         } else {
             Log.i("MyLog", "$x out of range")
         }
 
-        for (x in 1..10 step 2) {
+        for (x in 1 until 10) {//1-9
+
+        }
+
+        for (x in 1..10 step 2) {//1,3,5,7,9
             Log.i("MyLog", "$x")
         }
 
@@ -224,10 +249,25 @@ class MainActivity : AppCompatActivity() {
         Log.i("MyLog", "map[a]=${map["a"]}")
     }
 
-    //扩展方法
+    //扩展方法，删除空格
     private fun String.deleteSpace(): String {
         return this.replace(" ", "")
     }
+
+    //扩展方法,交换位置
+    fun MutableList<Int>.swap(index1: Int, index2: Int) {
+        val temp = this[index1]
+        this[index1] = this[index2]
+        this[index2] = temp
+    }
+
+    //泛型
+    fun <T> MutableList<T>.swap2(index1: Int, index2: Int) {
+        val temp = this[index1]
+        this[index1] = this[index2]
+        this[index2] = temp
+    }
+
 
     fun testNull() {
         var files = File("ss").listFiles()
@@ -241,6 +281,7 @@ class MainActivity : AppCompatActivity() {
 
     fun testArray() {
         val a = arrayOf(1, 2, 3, 4)
+        Log.i("MyLog", "a数组和=${a.sum()}")
         //循环方式1
         for (item in a) {
             Log.i("MyLog", "$item")
@@ -282,5 +323,14 @@ class MainActivity : AppCompatActivity() {
             Log.i("MyLog", "$it")
         }
         Log.i("MyLog", "this point is unreachable")
+    }
+
+    //可变数量的参数
+    fun <T> asList(vararg ts: T): List<T> {
+        var list = ArrayList<T>()
+        for (item in ts) {
+            list.add(item)
+        }
+        return list
     }
 }

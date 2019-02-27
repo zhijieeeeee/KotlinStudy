@@ -45,4 +45,11 @@ class User constructor(name: String, age: Int, gender: String) : People(gender),
         super<Action>.methodC()
         super<People>.methodC()
     }
+
+    override fun bar() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override val ttt: Int = 20
+    //override val ttt: Int get() = 20
 }
