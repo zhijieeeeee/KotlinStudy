@@ -1,11 +1,11 @@
 package com.spiderman.kotlinstudy
 
+import android.content.Intent
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -20,6 +20,16 @@ class MainActivity : AppCompatActivity() {
     var a = 1
     var s = "a is $a"
 
+    //获取java类
+    val sClass = Student::class.java
+
+    //lateinit 只用于变量 var
+    // lazy 只用于常量 val
+    //第一次调用 get() 会执行已传递给 lazy() 的 lambda 表达式并记录结果， 后续调用 get() 只是返回记录的结果。
+    val lazyString: String by lazy {
+        Log.i(TAG, "lazyInit")
+        "hello"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,6 +142,23 @@ class MainActivity : AppCompatActivity() {
         //如果我们已经有一个数组并希望将其内容传给该函数，我们使用伸展（spread）操作符（在数组前面加 *）
         var array = arrayOf(3, 35, 46)
         var list2 = asList(-1, -2, *array, -999)
+
+        //静态类
+        StaticClass.test()
+        StaticClass.i
+        //调用静态内部类方法
+        MyObject.a()
+        MyObject.y
+
+        ttt()
+        Log.i(TAG, TAG)
+
+        //获取java类，跳转
+        val intent = Intent(this, MainActivity::class.java)
+
+        Log.i(TAG, lazyString)
+        Log.i(TAG, lazyString)
+
     }
 
     //返回int
@@ -332,5 +359,28 @@ class MainActivity : AppCompatActivity() {
             list.add(item)
         }
         return list
+    }
+
+    //用object 修饰的类为静态类，里面的方法和变量都为静态的。
+    //静态内部类
+    //kotlin中调用静态内部类: MainActivity.MyObject.a()
+    //java中调用kotlin静态内部类 :MainActivity.MyObject.INSTANCE.a();
+    object MyObject {
+        const val y = 0
+        fun a() {
+            Log.i("MyLog", "此时 object 表示 直接声明类")
+        }
+    }
+
+    //companion object 修饰为伴生对象,伴生对象在类中只能存在一个，
+    // 类似于java中的静态方法 Java 中使用类访问静态成员，静态方法。
+    //companion object 中调用不到外部成员变量
+    //就像java中静态方法调用成员变量，要求成员变量必须是静态的
+    companion object {
+        private const val TAG = "MyLog"
+        fun ttt() {
+            Log.i(TAG, "此时 companion objec t表示 伴生对象")
+        }
+        //java 中调用 MainActivity.Companion.ttt();
     }
 }

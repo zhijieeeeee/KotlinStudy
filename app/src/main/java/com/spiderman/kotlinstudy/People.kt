@@ -17,6 +17,10 @@ open class People(gender: String) {
 
     init {
         Log.i("MyLog", "gender=$gender")
+
+        //kotlin中调用静态类
+        MainActivity.MyObject.a()
+        StaticClass.test()
     }
 
     fun methodA() {
