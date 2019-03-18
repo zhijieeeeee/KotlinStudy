@@ -10,6 +10,11 @@ import android.util.Log
 //open修饰才能被继承
 open class People(gender: String) {
 
+    //次构造函数
+    constructor(gender: String, name: String) : this(gender) {
+        Log.i("MyLog", "name=$name")
+    }
+
     open val x: Int = 10
     open val y: Float get() = 1.2f
 
@@ -21,6 +26,9 @@ open class People(gender: String) {
         //kotlin中调用静态类
         MainActivity.MyObject.a()
         StaticClass.test()
+
+        //调用伴生对象方法
+        MainActivity.ttt()
     }
 
     fun methodA() {

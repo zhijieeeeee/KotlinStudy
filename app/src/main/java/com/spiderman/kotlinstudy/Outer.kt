@@ -14,6 +14,7 @@ class Outer {
     }
 
     //类可以标记为 inner 以便能够访问外部类的成员。内部类会带有一个对外部类的对象的引用：
+    //不加inner无法访问外部类的成员i
     inner class Inner {
         fun foo() = i
     }

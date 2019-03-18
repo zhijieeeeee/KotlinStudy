@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.lang.AssertionError
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,13 +32,25 @@ class MainActivity : AppCompatActivity() {
         "hello"
     }
 
+    var _table: Map<Int, String>? = null
+    val table: Map<Int, String>
+        get() {
+            if (_table == null) {
+                _table = HashMap()
+            }
+            return _table ?: throw  AssertionError("Error")
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         tvTitle.text = "change"
         tvTitle.setTextColor(Color.parseColor("#0000ff"))
-        tvTitle.visibility = View.GONE
+        tvTitle.visibility = View.VISIBLE
+
+        iv.setImageResource(R.mipmap.ic_launcher)
 
         Log.i("MyLog", sum(1, 2).toString())
         Log.i("MyLog", "${sum2(4, 5)}")
@@ -121,6 +134,7 @@ class MainActivity : AppCompatActivity() {
         user.methodC()
 
         val people = People("女")
+        val people2 = People("男", "名字")
         people.text = "嘻嘻嘻"
         Log.i("MyLog", "people.text = ${people.text}")
         people.text = "哈哈哈"
@@ -159,6 +173,19 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, lazyString)
         Log.i(TAG, lazyString)
 
+        Log.i(TAG, " table[1]=${table[1]}")
+
+
+        val testList = ArrayList<Int>()
+        testList.add(11)
+        testList.add(12)
+        testList.add(13)
+
+        val mMap = HashMap<String, String>()
+        mMap.put("sss", "sss")
+        mMap.put("sss", "sss")
+        mMap.put("sss", "sss")
+        mMap.put("sss", "sss")
     }
 
     //返回int
@@ -198,6 +225,11 @@ class MainActivity : AppCompatActivity() {
         for (item in list) {
             Log.i("MyLog", item)
         }
+
+        var list2 = ArrayList<String>()
+        //在可能会空的集合中取第一元素
+        Log.i(TAG, list2.firstOrNull() ?: "list2是空数组")
+
     }
 
     fun printList2() {
