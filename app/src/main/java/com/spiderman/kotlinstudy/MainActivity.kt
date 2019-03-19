@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("MyLog", "${sentence.deleteSpace()}")
 
+        val mu2 = mutableListOf<String>()
         val mu = mutableListOf(1, 2, 3)
         mu.swap2(0, 2)
         mu.forEach {
