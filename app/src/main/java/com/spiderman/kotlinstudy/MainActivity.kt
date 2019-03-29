@@ -2,6 +2,7 @@ package com.spiderman.kotlinstudy
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -187,6 +188,14 @@ class MainActivity : AppCompatActivity() {
         mMap.put("sss", "sss")
         mMap.put("sss", "sss")
         mMap.put("sss", "sss")
+
+        iv.setOnClickListener {
+            val intentToProfit = Intent()
+            intentToProfit.setAction(Intent.ACTION_VIEW)
+            intentToProfit.setData(Uri.parse("profit://app/home?su=https%3a%2f%2fwww.35fx.com%2fmarket%2f"))
+            startActivity(intentToProfit)
+        }
+
     }
 
     //返回int
